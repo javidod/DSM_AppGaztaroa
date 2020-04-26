@@ -4,16 +4,17 @@ import { Card, Icon } from 'react-native-elements';
 
 import { EXCURSIONES } from '../comun/excursiones';
 import { COMENTARIOS } from '../comun/comentarios';
+import { baseUrl } from '../comun/comun';
 
 function RenderExcursion(props) {
 
     const excursion = props.excursion;
-
+    console.log(baseUrl + excursion.imagen);
     if (excursion != null) {
         return (
             <Card
                 featuredTitle={excursion.nombre}
-                image={require('./imagenes/40Años.png')}>
+                image={{uri: baseUrl + excursion.imagen}}>
                 <Text style={{ margin: 10 }}>
                     {excursion.descripcion}
                 </Text>
