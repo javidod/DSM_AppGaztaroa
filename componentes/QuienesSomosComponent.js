@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import { Text, ScrollView, FlatList } from 'react-native';
 import { ListItem, Card } from 'react-native-elements';
 
-import { ACTIVIDADES } from '../comun/actividades';
 import { baseUrl } from '../comun/comun';
+
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+    return {
+      actividades: state.actividades
+    }
+  }
 
 function Historia() {
 
@@ -32,7 +39,6 @@ function RenderActividades(props) {
 
     // Obtenemos la informacion de las actividades
     const actividades = props.actividades;
-
     // Definimos como el componente FlatList va a renderizar la informacion
     const renderActividadesItem = ({ item, index }) => {
         return (
@@ -62,21 +68,15 @@ function RenderActividades(props) {
 }
 
 class QuienesSomos extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            actividades: ACTIVIDADES
-        };
-    }
+   
     render() {
-
         return (
             <ScrollView>
                 <Historia />
-                <RenderActividades actividades={this.state.actividades} />
+                <RenderActividades actividades={this.props.actividades.actividades} />
             </ScrollView>
         );
     }
 }
 
-export default QuienesSomos;
+export default connect(mapStateToProps)(QuienesSomos);
