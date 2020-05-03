@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { Text, ScrollView, View } from 'react-native';
 import { Card } from 'react-native-elements';
-
 import { baseUrl } from '../comun/comun';
-
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
     return {
       excursiones: state.excursiones,
-      actividades: state.actividades,
-      cabeceras: state.cabeceras
+      cabeceras: state.cabeceras,
+      actividades: state.actividades
     }
   }
-  
+
 function RenderItem(props) {
     
         const item = props.item;
@@ -37,6 +35,7 @@ function RenderItem(props) {
 class Home extends Component {
 
     render() {
+        
         return(
             <ScrollView>
                 <RenderItem item={this.props.cabeceras.cabeceras.filter((cabecera) => cabecera.destacado)[0]} />

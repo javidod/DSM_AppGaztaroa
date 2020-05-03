@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, FlatList } from 'react-native';
+import { Text, View, ScrollView, FlatList} from 'react-native';
 import { Card, Icon } from 'react-native-elements';
-
 import { baseUrl } from '../comun/comun';
-
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
@@ -16,12 +14,13 @@ const mapStateToProps = state => {
 function RenderExcursion(props) {
 
     const excursion = props.excursion;
+    
     if (excursion != null) {
-        return (
+        return(
             <Card
-                featuredTitle={excursion.nombre}
-                image={{uri: baseUrl + excursion.imagen}}>
-                <Text style={{ margin: 10 }}>
+            featuredTitle={excursion.nombre}
+            image={{uri: baseUrl + excursion.imagen}}>
+                <Text style={{margin: 10}}>
                     {excursion.descripcion}
                 </Text>
                 <Icon
@@ -36,53 +35,52 @@ function RenderExcursion(props) {
         );
     }
     else {
-        return (<View></View>);
+        return(<View></View>);
     }
 }
 
 function RenderComentario(props) {
 
     const comentarios = props.comentarios;
-
-    const renderCommentarioItem = ({ item, index }) => {
-
+            
+    const renderCommentarioItem = ({item, index}) => {
+        
         return (
-            <View key={index} style={{ margin: 10 }}>
-                <Text style={{ fontSize: 14 }}>{item.comentario}</Text>
-                <Text style={{ fontSize: 12 }}>{item.valoracion} Stars</Text>
-                <Text style={{ fontSize: 12 }}>{'-- ' + item.autor + ', ' + item.dia} </Text>
+            <View key={index} style={{margin: 10}}>
+                <Text style={{fontSize: 14}}>{item.comentario}</Text>
+                <Text style={{fontSize: 12}}>{item.valoracion} Stars</Text>
+                <Text style={{fontSize: 12}}>{'-- ' + item.autor + ', ' + item.dia} </Text>
             </View>
         );
     };
-
+    
     return (
         <Card title='Comentarios' >
-            <FlatList
-                data={comentarios}
-                renderItem={renderCommentarioItem}
-                keyExtractor={item => item.id.toString()}
+        <FlatList 
+            data={comentarios}
+            renderItem={renderCommentarioItem}
+            keyExtractor={item => item.id.toString()}
             />
         </Card>
     );
 }
+
 
 class DetalleExcursion extends Component {
     constructor(props) {
         super(props);
         this.state = {
             favoritos: []
-
         };
     }
 
     marcarFavorito(excursionId) {
-        this.setState({ favoritos: this.state.favoritos.concat(excursionId) });
+        this.setState({favoritos: this.state.favoritos.concat(excursionId)});
     }
 
-
-    render() {
-        const { excursionId } = this.props.route.params;
-        return (
+    render(){
+        const {excursionId} = this.props.route.params;
+        return(
             <ScrollView>
                 <RenderExcursion
                     excursion={this.props.excursiones.excursiones[+excursionId]}
@@ -94,8 +92,7 @@ class DetalleExcursion extends Component {
                 />
             </ScrollView>
         );
-
-    }
+    } 
 }
 
 export default connect(mapStateToProps)(DetalleExcursion);

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { ListItem } from 'react-native-elements';
-
 import { baseUrl } from '../comun/comun';
-
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
@@ -25,7 +23,7 @@ class Calendario extends Component {
                         subtitle={item.descripcion}
                         hideChevron={true}
                         onPress={() => navigate('DetalleExcursion', { excursionId: item.id })}
-                        leftAvatar={{ source: {uri: baseUrl + item.imagen} }}
+                        leftAvatar={{source: {uri: baseUrl + item.imagen}}}
                     />
             );
         }
