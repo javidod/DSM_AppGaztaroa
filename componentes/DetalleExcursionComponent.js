@@ -97,10 +97,6 @@ class DetalleExcursion extends Component {
         }
     }
 
-    componentDidMount() {
-        this.props.postFavorito();
-    }
-
     marcarFavorito(excursionId) {
         this.props.postFavorito(excursionId);
     }

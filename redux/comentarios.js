@@ -11,7 +11,6 @@ export const comentarios = (state = { errMess: null, comentarios: [] }, action) 
     case ActionTypes.ADD_COMENTARIO:
       var comentario = action.payload;
       comentario.id = state.comentarios.length;
-      console.log(comentario)
       return { ...state, comentarios: state.comentarios.concat(comentario) };
 
     default:

@@ -153,25 +153,6 @@ export const addFavorito = (excursionId) => ({
     payload: excursionId
 });
 
-/*export const postComentario = (excursionID,valoracion,autor,comentario)  => (dispatch) => {
-    setTimeout(() => {
-        dispatch(
-            addComentario(excursionID,valoracion,autor,comentario,Date.parse()));
-    }, 2000);
-};
-
-export const addComentario = (excursionID,valoracion,autor,comentario,dia) => ({
-    type: ActionTypes.ADD_COMENTARIO,
-    //payload: [excursionID, valoracion, autor, comentario, dia ]
-    payload:    {
-                "excursionId": excursionID,
-                "valoracion": valoracion,
-                "comentario": comentario,
-                "autor": autor,
-                "dia": dia
-                }
-});*/
-
 export const postComentario = (excursionId, valoracion, autor, comentario) => (dispatch) => {
     // Construimos el payload con el formato que tienen en db.json los comentarios
     const newComentario= {
@@ -192,4 +173,9 @@ export const postComentario = (excursionId, valoracion, autor, comentario) => (d
 export const addComentario = (comentario) => ({
     type: ActionTypes.ADD_COMENTARIO,
     payload: comentario
+});
+
+export const borrarFavorito = (excursionId) => ({
+    type: ActionTypes.BORRAR_FAVORITO,
+    payload: excursionId
 });
