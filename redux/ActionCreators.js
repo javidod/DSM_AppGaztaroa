@@ -152,3 +152,44 @@ export const addFavorito = (excursionId) => ({
     type: ActionTypes.ADD_FAVORITO,
     payload: excursionId
 });
+
+/*export const postComentario = (excursionID,valoracion,autor,comentario)  => (dispatch) => {
+    setTimeout(() => {
+        dispatch(
+            addComentario(excursionID,valoracion,autor,comentario,Date.parse()));
+    }, 2000);
+};
+
+export const addComentario = (excursionID,valoracion,autor,comentario,dia) => ({
+    type: ActionTypes.ADD_COMENTARIO,
+    //payload: [excursionID, valoracion, autor, comentario, dia ]
+    payload:    {
+                "excursionId": excursionID,
+                "valoracion": valoracion,
+                "comentario": comentario,
+                "autor": autor,
+                "dia": dia
+                }
+});*/
+
+export const postComentario = (excursionId, valoracion, autor, comentario) => (dispatch) => {
+    // Construimos el payload con el formato que tienen en db.json los comentarios
+    const newComentario= {
+        excursionId: excursionId,
+        valoracion: valoracion,
+        autor: autor,
+        comentario: comentario,
+    };
+    // Añadimos la fecha
+    newComentario.dia = new Date().toISOString();
+    // Con thunk esperamos 2 segundos hasta llamar a añadir comentario
+    console.log(newComentario);
+    setTimeout(() => {
+        dispatch(addComentario(newComentario));
+    }, 2000);
+};
+ 
+export const addComentario = (comentario) => ({
+    type: ActionTypes.ADD_COMENTARIO,
+    payload: comentario
+});
