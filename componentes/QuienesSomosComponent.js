@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, useRef, useEffect } from 'react';
 import { Text, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
-import { FlatList } from 'react-native';
+import { FlatList, Animated } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { baseUrl } from '../comun/comun';
 import { connect } from 'react-redux';
@@ -27,6 +27,33 @@ function Historia() {
         </Card>
     );
 }
+
+const FadeInView = (props) => {
+    const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
+
+    React.useEffect(() => {
+        Animated.timing(
+            fadeAnim,
+            {
+                toValue: 1,
+                duration: 10000,
+            }
+        ).start();
+    }, [])
+
+    return (
+        <Animated.View                 // Special animatable View
+            style={{
+                ...props.style,
+                opacity: fadeAnim,         // Bind opacity to animated value
+            }}
+        >
+            {props.children}
+        </Animated.View>
+    );
+}
+
+
 
 class QuienesSomos extends Component {
 
@@ -60,7 +87,7 @@ class QuienesSomos extends Component {
                 <ScrollView>
                     <Historia />
                     <Card title="Actividades y recursos">
-                    <Text>{this.props.excursiones.errMess}</Text>
+                        <Text>{this.props.excursiones.errMess}</Text>
                     </Card>
                 </ScrollView>
             );
@@ -69,14 +96,16 @@ class QuienesSomos extends Component {
         else {
             return (
                 <ScrollView>
-                    <Historia />
-                    <Card title="Actividades y recursos">
-                        <FlatList
-                            data={this.props.actividades.actividades}
-                            renderItem={renderActividadItem}
-                            keyExtractor={item => item.id.toString()}
-                        />
-                    </Card>
+                    <FadeInView >
+                        <Historia />
+                        <Card title="Actividades y recursos">
+                            <FlatList
+                                data={this.props.actividades.actividades}
+                                renderItem={renderActividadItem}
+                                keyExtractor={item => item.id.toString()}
+                            />
+                        </Card>
+                    </FadeInView>
                 </ScrollView>
             );
         }
