@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Text, ScrollView, View } from 'react-native';
 import { Card } from 'react-native-elements';
-import { baseUrl } from '../comun/comun';
 import { connect } from 'react-redux';
 import { IndicadorActividad } from './IndicadorActividadComponent.js';
 
@@ -13,10 +12,11 @@ const mapStateToProps = state => {
     }
 }
 
+  
 function RenderItem(props) {
 
     const item = props.item;
-  
+   
     if (props.isLoading) {
         return (
             <IndicadorActividad />
@@ -36,7 +36,7 @@ function RenderItem(props) {
             return (
                 <Card
                     featuredTitle={item.nombre}
-                    image={{ uri: baseUrl + item.imagen }}>
+                    image={{ uri: item.imagen }}>
                     <Text
                         style={{ margin: 10 }}>
                         {item.descripcion}</Text>
@@ -53,7 +53,7 @@ function RenderItem(props) {
 class Home extends Component {
 
     render() {
-
+       
         return (
             <ScrollView>
                 <RenderItem item={this.props.cabeceras.cabeceras.filter((cabecera) => cabecera.destacado)[0]}

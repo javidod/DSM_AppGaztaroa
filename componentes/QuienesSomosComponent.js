@@ -3,7 +3,6 @@ import { Text, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
 import { FlatList, Animated } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import { baseUrl } from '../comun/comun';
 import { connect } from 'react-redux';
 import { IndicadorActividad } from './IndicadorActividadComponent.js';
 
@@ -66,7 +65,7 @@ class QuienesSomos extends Component {
                     title={item.nombre}
                     subtitle={item.descripcion}
                     hideChevron={true}
-                    leftAvatar={{ source: { uri: baseUrl + item.imagen } }}
+                    leftAvatar={{ source: { uri: item.imagen } }}
                 />
             );
         };

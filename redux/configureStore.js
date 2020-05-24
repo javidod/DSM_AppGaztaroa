@@ -16,7 +16,9 @@ export const ConfigureStore = () => {
             actividades,
             favoritos
         }),
-        applyMiddleware(thunk, logger)
+        //Quitamos logger para no ver la info en el terminal
+        applyMiddleware(thunk)
+        //applyMiddleware(thunk, logger)
     );
 
     return store;
