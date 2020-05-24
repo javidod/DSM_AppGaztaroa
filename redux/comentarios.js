@@ -1,4 +1,5 @@
 import * as ActionTypes from './ActionTypes';
+import firebase from '../comun/comun';
 
 export const comentarios = (state = { errMess: null, comentarios: [] }, action) => {
   switch (action.type) {
@@ -11,7 +12,13 @@ export const comentarios = (state = { errMess: null, comentarios: [] }, action) 
     case ActionTypes.ADD_COMENTARIO:
       var comentario = action.payload;
       comentario.id = state.comentarios.length;
-      return { ...state, comentarios: state.comentarios.concat(comentario) };
+      
+      // Concatenamos el nuevo comentario
+      state.comentarios = state.comentarios.concat(comentario);
+      
+      // Los subimos
+      firebase.database().ref('/comentarios').set(state.comentarios);
+      return { ...state, comentarios: state.comentarios };
 
     default:
       return state;

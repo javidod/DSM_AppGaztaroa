@@ -200,7 +200,7 @@ class DetalleExcursion extends Component {
                     onDismiss={() => { this.toggleModal(); this.resetForm(); }}
                     onRequestClose={() => { this.toggleModal(); this.resetForm(); }}>
                     <View style={styles.modal}>
-                        <Rating showRating fractions="{1}" startingValue={this.state.valoracion} onFinishRating={this.valoracionCompletada} />
+                        <Rating showRating fractions="{1}" startingValue= {this.state.valoracion} onFinishRating={this.valoracionCompletada} />
                         <Input
                             placeholder="Autor"
                             inputStyle={{ paddingLeft: 10 }}
