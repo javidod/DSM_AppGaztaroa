@@ -3,6 +3,8 @@ import { Text, View, ScrollView, StyleSheet, Picker, Switch, Modal, Button } fro
 import DatePicker from 'react-native-datepicker'
 import { colorGaztaroaOscuro } from '../comun/comun';
 
+import * as Calendar from 'expo-calendar'
+
 class PruebaEsfuerzo extends Component {
 
     constructor(props) {
@@ -29,8 +31,27 @@ class PruebaEsfuerzo extends Component {
         this.setState({ showModal: !this.state.showModal });
     }
 
-    gestionarReserva() {
-        console.log(JSON.stringify(this.state));
+    async gestionarReserva() { // Hay que poner la funcion como async " Can not use keyword 'await' outside an async function"
+        //console.log(JSON.stringify(this.state));
+        // Permisos para acceso al calendario del movil
+        const { status } = await Calendar.requestCalendarPermissionsAsync();
+        // Si tiene permisos
+        if (status === 'granted') {
+            // Cogemos los calendarios del movil
+            const calendars = await Calendar.getCalendarsAsync();
+            
+            // Describimos el evento
+            const evento = {
+                title: "Prueba de esfuerzo AppGaztaroa",
+                timeZone: "GMT+2", // Required on Android
+                //allDay: true,
+                startDate: new Date(this.state.fecha), // Required
+                endDate: new Date(this.state.fecha) // Required
+            };
+            // Añadimos el evento al primer calendario de nuestro dispositivo -- Calendar.createEventAsync(calendarId, details)
+            await Calendar.createEventAsync(calendars[0].id, evento)
+        }
+
         this.toggleModal();
     }
 
