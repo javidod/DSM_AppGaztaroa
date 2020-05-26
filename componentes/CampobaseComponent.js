@@ -6,6 +6,7 @@ import Contacto from './ContactoComponent';
 import DetalleExcursion from './DetalleExcursionComponent';
 import PruebaEsfuerzo from './PruebaEsfuerzoComponent';
 import VistaFavoritos from './VistaFavoritosComponent';
+import Imagenes from './ImagenesComponent';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -182,6 +183,30 @@ function VistaFavoritosNavegador({ navigation }) {
   );
 }
 
+function ImagenesNavegador({ navigation }) {
+  return (
+    <Stack.Navigator
+      initialRouteName="Imagenes"
+      headerMode="screen"
+      screenOptions={{
+        headerTintColor: '#fff',
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
+        headerTitleStyle: { color: '#fff' },
+        headerLeft: () => (<Icon name="menu" size={28} color='white' onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())} />),
+      }}
+    >
+      <Stack.Screen
+        name="Imagenes"
+        component={Imagenes}
+        options={{
+          title: 'Imágenes',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -274,6 +299,18 @@ function DrawerNavegador() {
           drawerIcon: ({ tintColor }) => (
             <Icon
               name='thumbs-up'
+              type='font-awesome'
+              size={22}
+              color={tintColor}
+            />
+          )
+        }}
+      />
+       <Drawer.Screen name="Imágenes" component={ImagenesNavegador}
+        options={{
+          drawerIcon: ({ tintColor }) => (
+            <Icon
+              name='image'
               type='font-awesome'
               size={22}
               color={tintColor}
