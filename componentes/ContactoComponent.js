@@ -37,7 +37,6 @@ class Contacto extends Component {
                         buttonStyle={{ backgroundColor: colorGaztaroaOscuro }}
                         onPress={this.enviarCorreo}
                     />
-
                 </Card>
             </Animatable.View>
         );
