@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, Button } from 'react-native';
 import { Card } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 
+import * as MailComposer from 'expo-mail-composer';
+import { colorGaztaroaOscuro } from '../comun/comun';
+
 class Contacto extends Component {
+
+    // Funcion para enviar correo
+    enviarCorreo(){
+        MailComposer.composeAsync({
+            // Destinatarios en forma array
+            recipients: ['gaztaroa@gaztaroa.com'],
+            // Concepto
+            subject:'Contacto - appGaztaroa',
+            // Texto predefinido para el cuerpo del correo
+            body:'Me gustaría participar en las salidas de montaña que se organizan a través de appGaztaroa.'
+        });
+      }
 
     render() {
         return (
@@ -17,6 +32,12 @@ class Contacto extends Component {
                 Tel: +34 948 277151{'\n'}{'\n'}
                 Email: gaztaroa@gaztaroa.com
                 </Text>
+                    <Button
+                        title='Contacto'
+                        buttonStyle={{ backgroundColor: colorGaztaroaOscuro }}
+                        onPress={this.enviarCorreo}
+                    />
+
                 </Card>
             </Animatable.View>
         );
