@@ -6,6 +6,13 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { logIn } from '../redux/ActionCreators';
 import { connect } from 'react-redux'
 
+// Login google
+// expo install expo-google-app-auth
+// Crear credenciales https://www.youtube.com/watch?v=ZcaQJoXY-3Q
+import * as Google from "expo-google-app-auth";
+import firebase from '../comun/comun';
+
+const ANDROID_CLIENT_ID = "276429033850-eei945oioh3bjjm98ghch4dp3342e4lu.apps.googleusercontent.com";
 const mapStateToProps = state => {
     return {
         login: state.login
@@ -25,6 +32,26 @@ class LoginScreen extends Component {
           password: ''
         }
       }
+      signInWithGoogle = async () => {
+        try {
+          console.log('Intentando autenticar');
+          const result = await Google.logInAsync({
+            androidClientId: ANDROID_CLIENT_ID,
+            scopes: ["profile", "email"]
+          });
+    
+          if (result.type === "success") {
+            console.log("LoginScreen.js.js 21 | ", result.user);
+            this.props.logIn(result.user.email)
+            // Por alguna razon con navigate('Inicio') no funciona
+            this.props.navigation.navigate('Inicio');
+          } else {
+            return { cancelled: true };
+          }
+        } catch (e) {
+          return { error: true };
+        }
+      };
     updateInputState = (key, val) => {
         if (key === "email") {
             this.setState(prevState => {
@@ -102,6 +129,7 @@ class LoginScreen extends Component {
                 <View style={styles.button}>
                     <Button title="Login" onPress={() => this.loginHandler({navigate})} style={styles.button} disabled={(this.state.email === "" || this.state.password === "")} />
                 </View>
+                <Button title="Login with Google" onPress={this.signInWithGoogle} />
                 <Text style={styles.text}>Don't have an account? <Text onPress={() => navigate('SignUp')} style={styles.navigateText}>Sign Up</Text></Text>
             </View>
         )
