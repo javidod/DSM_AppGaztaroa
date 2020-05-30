@@ -179,3 +179,14 @@ export const borrarFavorito = (excursionId) => ({
     type: ActionTypes.BORRAR_FAVORITO,
     payload: excursionId
 });
+
+// Para controlar el login
+export const logIn = (email) => ({
+    type: ActionTypes.LOGIN,
+    payload: email
+});
+
+
+export const logOut = () => ({
+    type: ActionTypes.DEL_AUTH
+}); 

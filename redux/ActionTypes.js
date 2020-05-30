@@ -17,3 +17,7 @@ export const POST_COMENTARIO = 'POST_COMENTARIO';
 export const ADD_COMENTARIO = 'ADD_COMENTARIO';
 
 export const BORRAR_FAVORITO = 'BORRAR_FAVORITO';
+
+//Login
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT'; 

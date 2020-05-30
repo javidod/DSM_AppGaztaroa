@@ -8,7 +8,9 @@ const mapStateToProps = state => {
     return {
         excursiones: state.excursiones,
         cabeceras: state.cabeceras,
-        actividades: state.actividades
+        actividades: state.actividades,
+        // Pruebo a ver si estoy haciendo bien los actions
+        login: state.login
     }
 }
 
@@ -53,9 +55,11 @@ function RenderItem(props) {
 class Home extends Component {
 
     render() {
-       
+        // Pruebo a ver si estoy haciendo bien los actions
+       //console.log(this.props.login.user);
         return (
             <ScrollView>
+                <Text>{this.props.user}</Text>
                 <RenderItem item={this.props.cabeceras.cabeceras.filter((cabecera) => cabecera.destacado)[0]}
                     isLoading={this.props.cabeceras.isLoading}
                     errMess={this.props.cabeceras.errMess}

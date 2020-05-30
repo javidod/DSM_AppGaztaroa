@@ -6,6 +6,7 @@ import { comentarios } from './comentarios';
 import { cabeceras } from './cabeceras';
 import { actividades } from './actividades';
 import { favoritos } from './favoritos';
+import { login } from './login';
 
 //import storage from 'redux-persist/lib/storage' // Importamos el motor que queremos que use - DA ERROR, MARAVILLOSO
 //import AsyncStorage from '@react-native-community/async-storage';
@@ -28,7 +29,8 @@ const reducer = combineReducers({
         comentarios,
         cabeceras,
         actividades,
-        favoritos
+        favoritos,
+        login
         });
 
 // Creamos el reducer que persiste con la config que hemos puesto antes
