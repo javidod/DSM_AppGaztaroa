@@ -206,3 +206,40 @@ export const logIn = (email) => ({
 export const logOut = () => ({
     type: ActionTypes.DEL_AUTH
 }); 
+
+export const fetchFavoritos = (user) => (dispatch) => {
+    console.log('holi');
+    console.log(user);
+    if (user) {
+        user = user.replace(".", "");
+    }else{
+        user = "null";
+    }
+    console.log(user);
+    console.log(fetch(baseUrl + '/favoritos/' + user + '.json'));
+    console.log(fetch(baseUrl + '/comentarios.json'));
+    return fetch(baseUrl + '/favoritos/' + user + '.json')
+    .then(response => {
+        if (response.ok) {
+            console.log("ok");
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          console.log("error");
+          throw error;
+        }
+      },
+      error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+      })
+    .then(response => response.json())
+    .then(favoritos => dispatch(downloadFavoritos(favoritos)))
+    .catch(error => dispatch(comentariosFailed(error.message)));
+};
+
+export const downloadFavoritos = (favoritos) => ({
+    type: ActionTypes.DOWNLOAD_FAVORITOS,
+    payload: favoritos
+});

@@ -24,6 +24,7 @@ export const favoritos = (state = [], action) => {
                     action.payload.user = action.payload.user.replace(".", "");
                 }
                 //console.log(user);
+                console.log(state.concat(action.payload.excursionId));
                 firebase.database().ref('/favoritos/' + action.payload.user).set(state.concat(action.payload.excursionId));
                 return state.concat(action.payload.excursionId);
             }
@@ -37,6 +38,11 @@ export const favoritos = (state = [], action) => {
             console.log(state.filter((favorito) => favorito !== action.payload.excursionId));
             firebase.database().ref('/favoritos/' + action.payload.user).set(state.filter((favorito) => favorito !== action.payload.excursionId));
             return state.filter((favorito) => favorito !== action.payload.excursionId);
+
+        case ActionTypes.DOWNLOAD_FAVORITOS:
+           console.log("download_fav");
+           state = [];
+           return state;
 
         default:
             return state;

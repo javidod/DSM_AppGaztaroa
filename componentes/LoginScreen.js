@@ -12,15 +12,19 @@ import { connect } from 'react-redux'
 import * as Google from "expo-google-app-auth";
 import firebase from '../comun/comun';
 
+import { fetchFavoritos } from '../redux/ActionCreators';
+
 const ANDROID_CLIENT_ID = "276429033850-eei945oioh3bjjm98ghch4dp3342e4lu.apps.googleusercontent.com";
 const mapStateToProps = state => {
     return {
+        favoritos: state.favoritos,
         login: state.login
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    logIn: (email) => dispatch(logIn (email))
+    logIn: (email) => dispatch(logIn (email)),
+    fetchFavoritos: (user) => dispatch(fetchFavoritos(user)),
   })
 
 
@@ -98,6 +102,7 @@ class LoginScreen extends Component {
                 } else {
                     //console.log( this.state.email);
                     this.props.logIn(this.state.email)
+                    this.props.fetchFavoritos(this.state.email);
                     navigate('Inicio'/*, { user: this.state.email }*/)
                 }
             });
