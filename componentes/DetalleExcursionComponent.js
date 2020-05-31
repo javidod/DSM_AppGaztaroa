@@ -6,16 +6,18 @@ import { postFavorito, postComentario } from '../redux/ActionCreators';
 import { colorGaztaroaOscuro } from '../comun/comun';
 import * as Animatable from 'react-native-animatable';
 
+
 const mapStateToProps = state => {
     return {
         excursiones: state.excursiones,
         comentarios: state.comentarios,
-        favoritos: state.favoritos
+        favoritos: state.favoritos,
+        login: state.login
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    postFavorito: (excursionId) => dispatch(postFavorito(excursionId)),
+    postFavorito: (excursionId,user) => dispatch(postFavorito(excursionId,user)),
     postComentario: (excursionId, valoracion, autor, comentario) => dispatch(postComentario(excursionId, valoracion, autor, comentario)),
 })
 
@@ -153,7 +155,9 @@ class DetalleExcursion extends Component {
     }
 
     marcarFavorito(excursionId) {
-        this.props.postFavorito(excursionId);
+        console.log("DetalleExcursion");
+        console.log(this.props.login.user);
+        this.props.postFavorito(excursionId,this.props.login.user);
     }
 
     resetForm() {

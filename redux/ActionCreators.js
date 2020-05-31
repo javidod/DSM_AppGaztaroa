@@ -142,15 +142,26 @@ export const addActividades = (actividades) => ({
     payload: actividades
 });
 
+export const postFavorito = (excursionId,user)  => (dispatch) => {
+    setTimeout(() => {
+        dispatch(addFavorito(excursionId,user));
+    }, 2000);
+};
+/*
 export const postFavorito = (excursionId)  => (dispatch) => {
     setTimeout(() => {
         dispatch(addFavorito(excursionId));
     }, 2000);
 };
-
+*/
+/*
 export const addFavorito = (excursionId) => ({
     type: ActionTypes.ADD_FAVORITO,
     payload: excursionId
+});*/
+export const addFavorito = (excursionId,user) => ({
+    type: ActionTypes.ADD_FAVORITO,
+    payload: {excursionId:excursionId, user:user}
 });
 
 export const postComentario = (excursionId, valoracion, autor, comentario) => (dispatch) => {
@@ -175,9 +186,14 @@ export const addComentario = (comentario) => ({
     payload: comentario
 });
 
-export const borrarFavorito = (excursionId) => ({
+/*export const borrarFavorito = (excursionId) => ({
     type: ActionTypes.BORRAR_FAVORITO,
     payload: excursionId
+});*/
+
+export const borrarFavorito = (excursionId,user) => ({
+    type: ActionTypes.BORRAR_FAVORITO,
+    payload: {excursionId:excursionId, user:user}
 });
 
 // Para controlar el login

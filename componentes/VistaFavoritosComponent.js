@@ -9,19 +9,22 @@ import { borrarFavorito } from '../redux/ActionCreators';
 const mapStateToProps = state => {
     return {
         excursiones: state.excursiones,
-        favoritos: state.favoritos
+        favoritos: state.favoritos,
+        login: state.login
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    borrarFavorito: (excursionId) => dispatch(borrarFavorito(excursionId)),
+    borrarFavorito: (excursionId,user) => dispatch(borrarFavorito(excursionId,user)),
 })
 
 class VistaFavoritos extends Component {
 
-    borrarFavorito(excursionId) {
-        this.props.borrarFavorito(excursionId);
-    }
+    /*borrarFavorito(excursionId) {
+        console.log("porque te borras, cabron");
+        console.log(this.props.login.user);
+        //this.props.borrarFavorito(excursionId,this.props.login.user);
+    }*/
 
     // Funcion que crea la alerta
     crearBotolonAlerta = (item) =>
@@ -34,7 +37,7 @@ class VistaFavoritos extends Component {
                     onPress: () => console.log(item.nombre + ' Favorito no borrado'),
                     style: "cancel"
                 },
-                { text: "OK", onPress: () => this.props.borrarFavorito(item.id) }
+                { text: "OK", onPress: () => this.props.borrarFavorito(item.id,this.props.login.user) }
             ],
             { cancelable: false }
         );
