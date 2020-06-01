@@ -21,3 +21,6 @@ export const BORRAR_FAVORITO = 'BORRAR_FAVORITO';
 //Login
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT'; 
+
+export const DOWNLOAD_FAVORITOS = 'DOWNLOAD_FAVORITOS';
+export const RESET_FAVORITOS = 'RESET_FAV';

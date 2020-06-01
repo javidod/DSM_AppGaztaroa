@@ -204,21 +204,14 @@ export const logIn = (email) => ({
 
 
 export const logOut = () => ({
-    type: ActionTypes.DEL_AUTH
+    type: ActionTypes.LOGOUT
 }); 
 
 export const fetchFavoritos = (user) => (dispatch) => {
-    console.log('holi');
-    console.log(user);
     if (user) {
         user = user.replace(".", "");
-    }else{
-        user = "null";
     }
-    console.log(user);
-    console.log(fetch(baseUrl + '/favoritos/' + user + '.json'));
-    console.log(fetch(baseUrl + '/comentarios.json'));
-    return fetch(baseUrl + '/favoritos/' + user + '.json')
+    return fetch(baseUrl + 'favoritos/' + user + '.json')
     .then(response => {
         if (response.ok) {
             console.log("ok");
@@ -236,10 +229,14 @@ export const fetchFavoritos = (user) => (dispatch) => {
       })
     .then(response => response.json())
     .then(favoritos => dispatch(downloadFavoritos(favoritos)))
-    .catch(error => dispatch(comentariosFailed(error.message)));
+    .catch(error => dispatch(resetFavoritos()));
 };
 
 export const downloadFavoritos = (favoritos) => ({
     type: ActionTypes.DOWNLOAD_FAVORITOS,
     payload: favoritos
+});
+
+export const resetFavoritos = () => ({
+    type: ActionTypes.RESET_FAVORITOS
 });

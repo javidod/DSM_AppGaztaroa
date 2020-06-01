@@ -45,8 +45,10 @@ class LoginScreen extends Component {
           });
     
           if (result.type === "success") {
-            console.log("LoginScreen.js.js 21 | ", result.user);
+            //console.log("LoginScreen.js.js 21 | ", result.user);
             this.props.logIn(result.user.email)
+             // Actualizamos los favoritos con los que tenemos en la base de datos
+             this.props.fetchFavoritos(result.user.email);
             // Por alguna razon con navigate('Inicio') no funciona
             this.props.navigation.navigate('Inicio');
           } else {
@@ -102,6 +104,7 @@ class LoginScreen extends Component {
                 } else {
                     //console.log( this.state.email);
                     this.props.logIn(this.state.email)
+                    // Actualizamos los favoritos con los que tenemos en la base de datos
                     this.props.fetchFavoritos(this.state.email);
                     navigate('Inicio'/*, { user: this.state.email }*/)
                 }

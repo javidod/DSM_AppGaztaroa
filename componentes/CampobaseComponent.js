@@ -20,6 +20,7 @@ import { fetchExcursiones, fetchComentarios, fetchCabeceras, fetchActividades } 
 
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
+import CerrarSesion from './CerrarSesion';
 
 const mapStateToProps = state => {
   return {
@@ -242,7 +243,7 @@ function CustomDrawerContent(props) {
       <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
         <View style={styles.drawerHeader}>
           <View style={{ flex: 1 }}>
-            <Image source={{uri: 'https://firebasestorage.googleapis.com/v0/b/react-native-appgaztaroa.appspot.com/o/imagenes%2Flogo.png?alt=media&token=5187d381-ccaa-4e37-8873-c17c2b5654e6'}} style={styles.drawerImage} />
+            <Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/react-native-appgaztaroa.appspot.com/o/imagenes%2Flogo.png?alt=media&token=5187d381-ccaa-4e37-8873-c17c2b5654e6' }} style={styles.drawerImage} />
           </View>
           <View style={{ flex: 2 }}>
             <Text style={styles.drawerHeaderText}> Gaztaroa</Text>
@@ -254,7 +255,42 @@ function CustomDrawerContent(props) {
   );
 }
 
-function DrawerNavegador() {
+function DrawerNavegador(props) {
+  console.log(props.user);
+  let login_logout = '';
+  if (props.user) {
+    // Hay usuario -> Ponemos la pantalla de Cerrar Sesión
+    console.log('Hay usuario');
+    login_logout =
+                    <Drawer.Screen name="Cerrar Sesión" component={CerrarSesion}
+                      options={{
+                        drawerIcon: ({ tintColor }) => (
+                          <Icon
+                            name='user'
+                            type='font-awesome'
+                            size={24}
+                            color={tintColor}
+                          />
+                        )
+                      }}
+                    />
+  } else {
+    // No hay usuario -> Ponemos la pantalla de Login
+    console.log('No hay usuario');
+    login_logout =
+                    <Drawer.Screen name="Login" component={LoginNavegador}
+                      options={{
+                        drawerIcon: ({ tintColor }) => (
+                          <Icon
+                            name='user'
+                            type='font-awesome'
+                            size={24}
+                            color={tintColor}
+                          />
+                        )
+                      }}
+                    />
+  }
   return (
     <Drawer.Navigator
       drawerStyle={{
@@ -263,19 +299,8 @@ function DrawerNavegador() {
       initialRouteName="Campo base"
       drawerContent={props => <CustomDrawerContent {...props} />}
     >
-       <Drawer.Screen name="Login" component={LoginNavegador}
-        options={{
-          drawerIcon: ({ tintColor }) => (
-            <Icon
-              name='user'
-              type='font-awesome'
-              size={24}
-              color={tintColor}
-            />
-          )
-        }}
-      />
-      <Drawer.Screen name="Campo base" component={HomeNavegador}
+      
+       <Drawer.Screen name="Campo base" component={HomeNavegador}
         options={{
           drawerIcon: ({ tintColor }) => (
             <Icon
@@ -287,6 +312,7 @@ function DrawerNavegador() {
           )
         }}
       />
+        
       <Drawer.Screen name="Quiénes somos" component={QuienesSomosNavegador}
         options={{
           drawerIcon: ({ tintColor }) => (
@@ -347,7 +373,7 @@ function DrawerNavegador() {
           )
         }}
       />
-       <Drawer.Screen name="Imágenes" component={ImagenesNavegador}
+      <Drawer.Screen name="Imágenes" component={ImagenesNavegador}
         options={{
           drawerIcon: ({ tintColor }) => (
             <Icon
@@ -359,6 +385,7 @@ function DrawerNavegador() {
           )
         }}
       />
+      {login_logout}
     </Drawer.Navigator>
   );
 }
@@ -376,7 +403,7 @@ class Campobase extends Component {
     return (
       <NavigationContainer>
         <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>
-          <DrawerNavegador />
+          <DrawerNavegador user={this.props.login.user} />
         </View>
       </NavigationContainer>
     );

@@ -20,7 +20,7 @@ const persistConfig = {
     key: 'root',
     storage: AsyncStorage, //motor que queremos que persista, en mi caso storage
     // WHITELIST - Lo que queremos que persista y en el 
-    whitelist: ['favoritos'] // only favoritos will be persisted - which reducer want to store
+    whitelist: ['favoritos','login'] // only favoritos will be persisted - which reducer want to store
   };
 
 // Creamos el reducer

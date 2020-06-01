@@ -14,11 +14,11 @@ const mapStateToProps = state => {
     }
 }
 
-  
+
 function RenderItem(props) {
 
     const item = props.item;
-   
+
     if (props.isLoading) {
         return (
             <IndicadorActividad />
@@ -55,11 +55,16 @@ function RenderItem(props) {
 class Home extends Component {
 
     render() {
-        // Pruebo a ver si estoy haciendo bien los actions
-       //console.log(this.props.login.user);
+        let user = null
+        if (this.props.login.user) {
+            user =
+                <Text style={{ flex: 1, justifyContent: 'center', textAlignVertical: "center", textAlign: "center", fontSize: 20, marginTop: 5 }}>
+                    {this.props.login.user}
+                </Text>
+        }
         return (
             <ScrollView>
-                <Text>{this.props.user}</Text>
+                {user}
                 <RenderItem item={this.props.cabeceras.cabeceras.filter((cabecera) => cabecera.destacado)[0]}
                     isLoading={this.props.cabeceras.isLoading}
                     errMess={this.props.cabeceras.errMess}
